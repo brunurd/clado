@@ -3,8 +3,9 @@ node_modules/
 package-lock.json
 
 # build files
-dist/
+/dist/
 
 # jest + junit
 junit.xml
-coverage/
+/coverage/
+/tests_report/

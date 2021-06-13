@@ -1,0 +1,113 @@
+version: 2.1
+
+jobs:
+  checkout:
+    resource_class: small
+    docker:
+      - image: node:14
+    steps:
+      - checkout
+      - run:
+          name: fix permissions
+          command: |
+            chmod -R 777 scripts/
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+
+  install:
+    resource_class: small
+    docker:
+      - image: node:14
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: install all dependencies
+          command: yarn install
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/node_modules
+
+  lint:
+    resource_class: small
+    docker:
+      - image: node:14
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: run prettier check
+          command: yarn lint
+
+  test:
+    resource_class: small
+    environment:
+      JEST_JUNIT_OUTPUT_DIR: ./tests_report
+    docker:
+      - image: node:14
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: tests
+          command: yarn test:ci
+      - store_test_results:
+          path: tests_report
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - checkout:
+          filters:
+            tags:
+              ignore:
+                - /.*/
+            branches:
+              only:
+                - /feat-.*/
+                - /fix-.*/
+                - staging
+                - main
+      - install:
+          requires:
+            - checkout
+          filters:
+            tags:
+              ignore:
+                - /.*/
+            branches:
+              only:
+                - /feat-.*/
+                - /fix-.*/
+                - staging
+                - main
+      - lint:
+          requires:
+            - install
+          filters:
+            tags:
+              ignore:
+                - /.*/
+            branches:
+              only:
+                - /feat-.*/
+                - /fix-.*/
+                - staging
+                - main
+      - test:
+          requires:
+            - install
+          filters:
+            tags:
+              ignore:
+                - /.*/
+            branches:
+              only:
+                - /feat-.*/
+                - /fix-.*/
+                - staging
+                - main
