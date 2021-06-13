@@ -1,19 +1,18 @@
 import React, { ReactNode, useState, createContext } from 'react';
 
-type State =
-  | { [key: string]: ReactNode }
-  | { [key: string]: (data: object) => ReactNode };
+type State = { [key: string]: (data: any) => JSX.Element };
 
 type StateMachineProps = {
-  data?: object;
+  data?: any;
   states: State;
   initialState?: string;
 };
 
 type StateMachineContextType = {
-  state?: string;
-  setState: (state: string, data: object) => void;
-  data: object;
+  state: string | undefined;
+  data: any;
+  setState: (state: string) => void;
+  setStateData: (data: any) => void;
 };
 
 const StateMachineContext = createContext({} as StateMachineContextType);
@@ -26,16 +25,14 @@ const StateMachine = ({
   const keys: Array<string | undefined> = Object.keys(states);
 
   const [stateData, setStateData] = useState(data);
-  const [state, setState] = useState(
-    initialState || keys.length >= 1 ? Object.keys(states)[0] : undefined
-  );
+  const [state, setState] = useState(initialState);
 
   const stateChild = (): ReactNode => {
     if (keys.includes(state) && state !== undefined) {
-      return states[state];
+      return states[state](stateData);
     }
     return keys.length >= 1 && keys[0] !== undefined
-      ? states[keys[0]]
+      ? states[keys[0]](stateData)
       : undefined;
   };
 
@@ -44,13 +41,11 @@ const StateMachine = ({
       value={{
         state,
         data: stateData,
-        setState: (newState: string, newData: object) => {
-          setStateData({ ...stateData, ...newData });
-          setState(newState);
-        },
+        setState,
+        setStateData,
       }}
     >
-      {stateChild}
+      {stateChild()}
     </StateMachineContext.Provider>
   );
 };

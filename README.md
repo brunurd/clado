@@ -20,8 +20,8 @@ const App = () => {
       <StateMachine
         initialState="a"
         states={{
-          a: <ComponentA />,
-          b: <ComponentB />,
+          a: () => <ComponentA />,
+          b: () => <ComponentB />,
         }}
       />
     </main>
@@ -69,8 +69,8 @@ const App = () => {
         }}
         initialState="a"
         states={{
-          a: <ComponentA />,
-          b: <ComponentB />,
+          a: () => <ComponentA />,
+          b: () => <ComponentB />,
         }}
       />
     </main>
