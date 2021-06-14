@@ -10,7 +10,7 @@
     "build": "./scripts/build.sh",
     "test": "./scripts/test.sh",
     "test:ci": "./scripts/test-ci.sh",
-    "force_staging": "./scripts/force_staging.sh"
+    "publish": "./scripts/publish.sh"
   },
   "keywords": [
     "state",

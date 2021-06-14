@@ -57,9 +57,23 @@ jobs:
       - store_test_results:
           path: tests_report
 
+  publish:
+    resource_class: small
+    docker:
+      - image: node:14
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: build distribution files
+          command: yarn build
+      - run:
+          name: publish to npm
+          command: yarn publish
+
 workflows:
   version: 2.1
-  build_and_test:
+  test_and_publish:
     jobs:
       - checkout:
           filters:
@@ -70,7 +84,6 @@ workflows:
               only:
                 - /feat-.*/
                 - /fix-.*/
-                - staging
                 - main
       - install:
           requires:
@@ -83,7 +96,6 @@ workflows:
               only:
                 - /feat-.*/
                 - /fix-.*/
-                - staging
                 - main
       - lint:
           requires:
@@ -96,7 +108,6 @@ workflows:
               only:
                 - /feat-.*/
                 - /fix-.*/
-                - staging
                 - main
       - test:
           requires:
@@ -109,5 +120,15 @@ workflows:
               only:
                 - /feat-.*/
                 - /fix-.*/
-                - staging
+                - main
+      - publish:
+          requires:
+            - lint
+            - test
+          filters:
+            tags:
+              ignore:
+                - /.*/
+            branches:
+              only:
                 - main

@@ -11,8 +11,9 @@ type StateMachineProps = {
 type StateMachineContextType = {
   state: string | undefined;
   data: any;
-  setState: (state: string) => void;
-  setStateData: (data: any) => void;
+  history: Array<{ state: string; data: any }>;
+  lastState: () => string | undefined;
+  setState: (newState: string, newData?: any) => void;
 };
 
 const StateMachineContext = createContext({} as StateMachineContextType);
@@ -26,6 +27,9 @@ const StateMachine = ({
 
   const [stateData, setStateData] = useState(data);
   const [state, setState] = useState(initialState);
+  const [history, setHistory] = useState<Array<{ state: string; data: any }>>(
+    []
+  );
 
   const stateChild = (): ReactNode => {
     if (keys.includes(state) && state !== undefined) {
@@ -41,8 +45,17 @@ const StateMachine = ({
       value={{
         state,
         data: stateData,
-        setState,
-        setStateData,
+        history,
+        lastState: () => {
+          const lastIndex = history.length - 1;
+          return history.length >= 1 ? history[lastIndex].state : undefined;
+        },
+        setState: (newState: string, newData?: any) => {
+          newData = newData ? { ...data, ...newData } : data;
+          setHistory(history.concat([{ state: state as string, data }]));
+          setStateData(newData);
+          setState(newState);
+        },
       }}
     >
       {stateChild()}

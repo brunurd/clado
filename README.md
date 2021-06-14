@@ -31,13 +31,13 @@ const App = () => {
 
 ### setState
 
-To change the current state you can use the `setState` function of the `useStateMachine` hook in one of the `StateMachine` children.
+To change the current state you can use the `setState` function of the `StateMachineContext`.
 
 ```jsx
-import { useStateMachine } from 'clado';
+import { StateMachineContext } from 'clado';
 
 const ComponentA = () => {
-  const { setState } = useStateMachine();
+  const { setState } = useContext(StateMachineContext);
 
   return (
     <>
@@ -80,10 +80,10 @@ const App = () => {
 
 ### Update Data
 
-The way to update this data is using the `setState` function of the `useStateMachine` hook. It only overrides the passed fields, any other will be preserved.
+The way to update this data is using the `setState` function of the `StateMachineContext`. It only overrides the passed fields, any other will be preserved.
 
 ```jsx
-const { setState } = useStateMachine();
+const { setState } = useContext(StateMachineContext);
 
 <button
   onClick={() =>
@@ -98,10 +98,10 @@ const { setState } = useStateMachine();
 
 ### Reading Data
 
-Is possible to access this data using the `data` return of the `useStateMachine` hook.
+Is possible to access this data using the `data` returned of the `StateMachineContext`.
 
 ```jsx
-const { data } = useStateMachine();
+const { data } = useContext(StateMachineContext);
 
 <h2>{data.textValue}</h2>;
 ```
