@@ -1,0 +1,12 @@
+# pnpm
+package-lock.json
+yarn.lock
+.yarn*
+
+# build files
+/dist/
+
+# jest + junit
+junit.xml
+/coverage/
+/tests_report/
