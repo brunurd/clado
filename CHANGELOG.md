@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [1.0.0] - aaaa-mm-dd
+## [0.0.1] - 2024-02-19
 
 ### Added
 
@@ -14,4 +14,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `StateMachine` component
 - `useStateMachine` hook
 - Jest and unit tests
-- CI provision with CircleCI

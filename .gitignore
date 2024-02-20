@@ -1,11 +1,13 @@
-# npm + yarn
+# pnpm
 node_modules/
 package-lock.json
+yarn.lock
+.yarn*
 
 # build files
-/dist/
+/packages/**/dist/
 
 # jest + junit
 junit.xml
-/coverage/
-/tests_report/
+/packages/**/coverage/
+/packages/**/tests_report/
