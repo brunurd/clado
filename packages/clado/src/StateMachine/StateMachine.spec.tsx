@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { prettyDOM, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { StateMachine, StateMachineContext } from './StateMachine';
@@ -15,7 +15,7 @@ describe('<StateMachine />', () => {
           a: () => <p>text a</p>,
           b: () => <p>text b</p>,
         }}
-      />
+      />,
     );
 
     expect(screen.queryByText('text a')).toBeVisible();
@@ -30,7 +30,7 @@ describe('<StateMachine />', () => {
           a: () => <p>text a</p>,
           b: () => <p>text b</p>,
         }}
-      />
+      />,
     );
 
     expect(screen.queryByText('text a')).toBeNull();
@@ -49,7 +49,7 @@ describe('<StateMachine />', () => {
           a: () => <p>text a</p>,
           b: (data) => <p>{`${data.exampleStr} ${data.exampleInt}`}</p>,
         }}
-      />
+      />,
     );
 
     expect(screen.queryByText('Example text here 931')).toBeVisible();
@@ -103,7 +103,7 @@ describe('<StateMachine />', () => {
             a: () => <ComponentA />,
             b: () => <ComponentB />,
           }}
-        />
+        />,
       );
 
       expect(screen.queryByText('A')).toBeVisible();
@@ -161,7 +161,7 @@ describe('<StateMachine />', () => {
             b: () => <ComponentB />,
             c: () => <ComponentC />,
           }}
-        />
+        />,
       );
 
       expect(screen.queryByText('A')).toBeVisible();
@@ -220,7 +220,7 @@ describe('<StateMachine />', () => {
             a: () => <ComponentA />,
             b: () => <ComponentB />,
           }}
-        />
+        />,
       );
 
       expect(screen.queryByText('A')).toBeVisible();
@@ -273,7 +273,7 @@ describe('<StateMachine />', () => {
             a: (data) => <ComponentA text={data.text} />,
             b: () => <ComponentB />,
           }}
-        />
+        />,
       );
 
       expect(screen.queryByText('default text')).toBeVisible();
@@ -347,7 +347,7 @@ describe('<StateMachine />', () => {
             b: () => <ComponentB />,
             c: () => <ComponentC />,
           }}
-        />
+        />,
       );
 
       expect(screen.queryByText('A')).toBeNull();

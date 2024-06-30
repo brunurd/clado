@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, createContext, useMemo } from 'react';
+import { ReactNode, useState, createContext, useMemo } from 'react';
 
 type State = { [key: string]: (data: any) => JSX.Element };
 

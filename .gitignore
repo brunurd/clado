@@ -1,2 +1,48 @@
-# node
+# dependencies
 node_modules/
+jspm_packages/
+.pnp/
+.yarn/
+package-lock.json
+yarn.lock
+.pnp.*
+npm-shrinkwrap.json
+bun.lockb
+
+# test
+coverage/
+.swc/
+cypress/videos/
+cypress/downloads/
+cypress/screenshots/
+*.mp4
+.coverage
+junit.xml
+
+# distribution
+build/
+.build/
+.esbuild/
+dist/
+out/
+release/
+*.tsbuildinfo
+*.egg-info/
+*.egg
+public/*.min.js
+public/*.min.js.map
+
+# misc
+logs/
+.DS_Store
+*.pem
+*.log
+*.log*
+*.deb
+.env
+*.zip
+*.db
+*.db-*
+env.json
+env.*.json
+response.json
