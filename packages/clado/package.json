@@ -1,6 +1,6 @@
 {
   "name": "clado",
-  "version": "0.1.0",
+  "version": "0.1.1-beta1",
   "description": "A React state machine based on Context API.",
   "keywords": [
     "state",
@@ -25,10 +25,11 @@
   "main": "dist/clado.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "lint": "cross-env 'ESLINT_USE_FLAT_CONFIG=true eslint -c ./config/.eslintrc.js --debug .'",
-    "fix": "cross-env 'ESLINT_USE_FLAT_CONFIG=true pnpm audit --fix && eslint -c ./config/.eslintrc.js --debug --fix .'",
+    "lint": "cross-env 'ESLINT_USE_FLAT_CONFIG=true eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist .'",
+    "fix": "cross-env 'ESLINT_USE_FLAT_CONFIG=true pnpm audit --fix && eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist --fix .'",
     "test": "cross-env 'jest --config='./config/jest.config.js' --forceExit --detectOpenHandles --passWithNoTests --watchAll=false --coverage'",
-    "build": "tsc && vite build -c ./config/vite.config.ts"
+    "build": "tsc && vite build -c ./config/vite.config.ts",
+    "prepublish": "pnpm build"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

@@ -1,4 +1,4 @@
-import { ReactNode, useState, createContext, useMemo } from 'react';
+import { ReactNode, useState, createContext, useMemo, useContext } from 'react';
 
 type State = { [key: string]: (data: any) => JSX.Element };
 
@@ -10,7 +10,7 @@ type StateMachineProps = {
 
 type HistoryItem = {
   state?: string;
-  data: any;
+  data?: any;
   loaded: boolean;
 };
 
@@ -29,7 +29,7 @@ const StateMachine = ({
   initialState = undefined,
   data = {},
 }: StateMachineProps) => {
-  const keys: Array<string | undefined> = Object.keys(states);
+  const keys: Array<string | undefined> = useMemo(() => Object.keys(states), [states]);
 
   const [stateData, setStateData] = useState(data);
   const [state, setState] = useState(initialState);
@@ -57,7 +57,7 @@ const StateMachine = ({
           ? history[lastIndex].state?.trim()
           : undefined;
       },
-      setState: (newState?: string, newData?: any) => {
+      setState: <T,>(newState?: string, newData?: T) => {
         if (!newState) {
           return;
         }
@@ -70,7 +70,7 @@ const StateMachine = ({
             loaded: false,
           },
         ]);
-        setStateData({ ...stateData, ...newData });
+        setStateData({ ...stateData as T, ...newData });
         setState(newState);
       },
     };
@@ -83,4 +83,15 @@ const StateMachine = ({
   );
 };
 
-export { StateMachine, StateMachineContext };
+const useStateMachine = <T,>() => {
+  const context = useContext(StateMachineContext);
+
+  return useMemo(() => {
+    return {
+      ...context,
+      data: context.data as T,
+    };
+  }, [context]);
+};
+
+export { StateMachine, useStateMachine };

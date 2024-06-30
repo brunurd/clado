@@ -1,13 +1,9 @@
-import { useContext, useState } from 'react';
-import { prettyDOM, render, screen } from '@testing-library/react';
+import { useState } from 'react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { StateMachine, StateMachineContext } from './StateMachine';
+import { StateMachine, useStateMachine } from './StateMachine';
 
 describe('<StateMachine />', () => {
-  afterEach(() => {
-    console.log(prettyDOM(document));
-  });
-
   it('shows the first state component when initialState is not passed.', () => {
     render(
       <StateMachine
@@ -38,16 +34,21 @@ describe('<StateMachine />', () => {
   });
 
   it('shows the data value when render the current state component.', () => {
+    type DataType = {
+      exampleStr: string,
+      exampleInt: number,
+    };
+
     render(
       <StateMachine
         data={{
           exampleStr: 'Example text here',
           exampleInt: 931,
-        }}
+        } as DataType}
         initialState="b"
         states={{
           a: () => <p>text a</p>,
-          b: (data) => <p>{`${data.exampleStr} ${data.exampleInt}`}</p>,
+          b: (data: DataType) => <p>{`${data.exampleStr} ${data.exampleInt}`}</p>,
         }}
       />,
     );
@@ -58,7 +59,7 @@ describe('<StateMachine />', () => {
   describe('setState', () => {
     it('should does nothing when no state is passed to setState.', async () => {
       const ComponentA = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         const [clicks, setClicks] = useState(0);
 
         return (
@@ -78,7 +79,7 @@ describe('<StateMachine />', () => {
       };
 
       const ComponentB = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         const [clicks, setClicks] = useState(0);
 
         return (
@@ -127,7 +128,7 @@ describe('<StateMachine />', () => {
       }
 
       const ComponentA = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         return (
           <>
             <p>A</p>
@@ -136,7 +137,7 @@ describe('<StateMachine />', () => {
         );
       };
       const ComponentB = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         return (
           <>
             <p>B</p>
@@ -145,7 +146,7 @@ describe('<StateMachine />', () => {
         );
       };
       const ComponentC = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         return (
           <>
             <p>C</p>
@@ -195,7 +196,7 @@ describe('<StateMachine />', () => {
       }
 
       const ComponentA = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         return (
           <>
             <p>A</p>
@@ -205,7 +206,7 @@ describe('<StateMachine />', () => {
       };
 
       const ComponentB = () => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         return (
           <>
             <p>B</p>
@@ -242,7 +243,7 @@ describe('<StateMachine />', () => {
       }
 
       const ComponentA = ({ text }: { text: string }) => {
-        const { setState } = useContext(StateMachineContext);
+        const { setState } = useStateMachine();
         return (
           <>
             <p>{text}</p>
@@ -254,7 +255,7 @@ describe('<StateMachine />', () => {
       };
 
       const ComponentB = () => {
-        const { data, setState } = useContext(StateMachineContext);
+        const { data, setState } = useStateMachine<{ text: string }>();
         return (
           <>
             <p>{data.text}</p>
@@ -267,10 +268,10 @@ describe('<StateMachine />', () => {
 
       render(
         <StateMachine
-          data={{ text: 'default text' }}
+          data={{ text: 'default text' } as { text: string }}
           initialState="b"
           states={{
-            a: (data) => <ComponentA text={data.text} />,
+            a: (data: { text: string }) => <ComponentA text={data.text} />,
             b: () => <ComponentB />,
           }}
         />,
@@ -307,7 +308,7 @@ describe('<StateMachine />', () => {
       }
 
       const ComponentA = () => {
-        const { setState, lastState } = useContext(StateMachineContext);
+        const { setState, lastState } = useStateMachine();
         return (
           <>
             <p>A</p>
@@ -318,7 +319,7 @@ describe('<StateMachine />', () => {
       };
 
       const ComponentB = () => {
-        const { setState, lastState } = useContext(StateMachineContext);
+        const { setState, lastState } = useStateMachine();
         return (
           <>
             <p>B</p>
@@ -329,7 +330,7 @@ describe('<StateMachine />', () => {
       };
 
       const ComponentC = () => {
-        const { setState, lastState } = useContext(StateMachineContext);
+        const { setState, lastState } = useStateMachine();
         return (
           <>
             <p>C</p>
