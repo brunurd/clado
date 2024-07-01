@@ -125,5 +125,6 @@ Or in the states declaration as a parameter in the function.
 
 [img-github-tag-badge]:https://img.shields.io/github/v/tag/brunurd/clado?style=flat-square
 [img-npm-version-badge]:https://img.shields.io/npm/v/clado/latest?style=flat-square
+[img-github-workflow-badge]:https://img.shields.io/github/workflow/status/brunurd/clado/deploy/main?style=flat-square
 [link-github-tags]:https://github.com/brunurd/clado/tags
 [link-npm]:https://www.npmjs.com/package/clado
