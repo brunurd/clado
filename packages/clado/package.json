@@ -1,6 +1,6 @@
 {
   "name": "clado",
-  "version": "0.1.1-beta1",
+  "version": "0.1.3",
   "description": "A React state machine based on Context API.",
   "keywords": [
     "state",
@@ -63,6 +63,6 @@
     "vite-plugin-dts": "^3.9.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   }
 }
