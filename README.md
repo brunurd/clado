@@ -34,10 +34,10 @@ const App = () => {
 To change the current state you can use the `setState` function of the `StateMachineContext`.
 
 ```jsx
-import { StateMachineContext } from 'clado';
+import { useStateMachine } from 'clado';
 
 const ComponentA = () => {
-  const { setState } = useContext(StateMachineContext);
+  const { setState } = useStateMachine();
 
   return (
     <>
@@ -83,7 +83,7 @@ const App = () => {
 The way to update this data is using the `setState` function of the `StateMachineContext`. It only overrides the passed fields, any other will be preserved.
 
 ```jsx
-const { setState } = useContext(StateMachineContext);
+const { setState } = useStateMachine();
 
 <button
   onClick={() =>
@@ -100,19 +100,19 @@ const { setState } = useContext(StateMachineContext);
 
 Is possible to access this data using the `data` returned of the `StateMachineContext`.
 
-```jsx
-const { data } = useContext(StateMachineContext);
+```tsx
+const { data } = useStateMachine<{ textValue: string }>();
 
 <h2>{data.textValue}</h2>;
 ```
 
 Or in the states declaration as a parameter in the function.
 
-```jsx
+```tsx
 <StateMachine
   data={{
     textValue: 'a example text',
-  }}
+  } as <{ textValue: string }>}
   states={{
     a: (data) => <ComponentA text={data.textValue} />,
     b: (data) => <ComponentB text={data.textValue} />,
