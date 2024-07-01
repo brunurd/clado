@@ -1,7 +1,16 @@
 {
   "name": "clado",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A React state machine based on Context API.",
+  "main": "dist/clado.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "cross-env 'ESLINT_USE_FLAT_CONFIG=true eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist .'",
+    "fix": "cross-env 'ESLINT_USE_FLAT_CONFIG=true pnpm audit --fix && eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist --fix .'",
+    "test": "cross-env 'jest --config='./config/jest.config.js' --forceExit --detectOpenHandles --passWithNoTests --watchAll=false --coverage'",
+    "build": "tsc && vite build -c ./config/vite.config.ts",
+    "prepublish": "pnpm build"
+  },
   "keywords": [
     "state",
     "machine",
@@ -11,25 +20,36 @@
     "clade",
     "komutilo"
   ],
-  "author": "Bruno Araujo <bruno@komutilo.com>",
-  "license": "MIT",
+  "author": {
+    "name": "Bruno Araujo",
+    "email": "bruno@komutilo.com",
+    "url": "https://github.com/brunurd"
+  },
+  "contributors": [
+    {
+      "name": "Bruno Araujo",
+      "email": "bruno@komutilo.com",
+      "url": "https://github.com/brunurd"
+    }
+  ],
+  "homepage": "https://github.com/brunurd/clado#readme",
+  "bugs": {
+    "url": "https://github.com/brunurd/clado/issues",
+    "email": "bruno@komutilo.com"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/komutilo/clado.git"
+    "url": "git+https://github.com/brunurd/clado.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "~20.14.0",
+    "npm": "~10.8.1"
   },
   "volta": {
     "node": "20.14.0",
     "npm": "10.8.1",
     "pnpm": "9.4.0"
-  },
-  "main": "dist/clado.mjs",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "lint": "cross-env 'ESLINT_USE_FLAT_CONFIG=true eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist .'",
-    "fix": "cross-env 'ESLINT_USE_FLAT_CONFIG=true pnpm audit --fix && eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist --fix .'",
-    "test": "cross-env 'jest --config='./config/jest.config.js' --forceExit --detectOpenHandles --passWithNoTests --watchAll=false --coverage'",
-    "build": "tsc && vite build -c ./config/vite.config.ts",
-    "prepublish": "pnpm build"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
