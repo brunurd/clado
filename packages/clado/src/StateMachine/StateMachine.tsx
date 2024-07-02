@@ -29,7 +29,7 @@ const StateMachine = ({
   initialState = undefined,
   data = {},
 }: StateMachineProps) => {
-  const keys: Array<string | undefined> = useMemo(() => Object.keys(states), [states]);
+  const keys: Array<string | undefined> = useMemo(() => states ? Object.keys(states) : [], [states]);
 
   const [stateData, setStateData] = useState(data);
   const [state, setState] = useState(initialState);
@@ -53,7 +53,7 @@ const StateMachine = ({
       history,
       lastState: () => {
         const lastIndex = history.length - 2;
-        return history.length >= 2
+        return history.length >= 2 && lastIndex < history.length && lastIndex >= 0
           ? history[lastIndex].state?.trim()
           : undefined;
       },
@@ -63,14 +63,14 @@ const StateMachine = ({
         }
 
         setHistory([
-          ...history,
+          ...(history ?? []),
           {
             state: newState,
             data: newData,
             loaded: false,
           },
         ]);
-        setStateData({ ...stateData as T, ...newData });
+        setStateData({ ...(stateData ?? {}) as T, ...(newData ?? {}) });
         setState(newState);
       },
     };
