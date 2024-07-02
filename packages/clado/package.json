@@ -1,6 +1,6 @@
 {
   "name": "clado",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A React state machine based on Context API.",
   "main": "dist/clado.mjs",
   "types": "dist/index.d.ts",

@@ -87,9 +87,14 @@ const useStateMachine = <T,>() => {
   const context = useContext(StateMachineContext);
 
   return useMemo(() => {
-    return {
+    return context ? {
       ...context,
       data: context.data as T,
+    } : {
+      data: {} as T,
+      history: [],
+      lastState: (): string | undefined => undefined,
+      setState: () => { },
     };
   }, [context]);
 };

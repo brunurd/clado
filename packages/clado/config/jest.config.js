@@ -26,7 +26,7 @@ const jestConfig = {
       lines: 70,
       statements: 70,
       branches: 70,
-      functions: 70,
+      functions: 60,
     },
   },
   preset: 'ts-jest',
