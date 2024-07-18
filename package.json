@@ -4,7 +4,12 @@
   "volta": {
     "node": "20.14.0",
     "npm": "10.8.1",
-    "pnpm": "9.4.0"
+    "pnpm": "9.5.0"
   },
-  "scripts": {}
+  "workspaces": [
+    "packages"
+  ],
+  "scripts": {
+    "test": "pnpm run -r --stream lint && pnpm -r --stream test"
+  }
 }

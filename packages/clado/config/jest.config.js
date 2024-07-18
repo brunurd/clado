@@ -23,10 +23,10 @@ const jestConfig = {
   maxWorkers: 1,
   coverageThreshold: {
     global: {
-      lines: 70,
-      statements: 70,
-      branches: 70,
-      functions: 60,
+      lines: 80,
+      statements: 80,
+      branches: 80,
+      functions: 80,
     },
   },
   preset: 'ts-jest',

@@ -34,7 +34,7 @@ const StateMachine = ({
   const [stateData, setStateData] = useState(data);
   const [state, setState] = useState(initialState);
   const [history, setHistory] = useState<Array<HistoryItem>>([
-    { state: initialState, data, loaded: true },
+    { state: initialState ?? (keys.length > 0 ? keys[0] : undefined), data, loaded: true },
   ]);
 
   const stateChild = (): ReactNode => {
@@ -57,7 +57,7 @@ const StateMachine = ({
           ? history[lastIndex].state?.trim()
           : undefined;
       },
-      setState: <T,>(newState?: string, newData?: T) => {
+      setState: (newState?: string, newData?: unknown) => {
         if (!newState) {
           return;
         }
@@ -70,7 +70,8 @@ const StateMachine = ({
             loaded: false,
           },
         ]);
-        setStateData({ ...(stateData ?? {}) as T, ...(newData ?? {}) });
+
+        setStateData({ ...(stateData ?? {}), ...(newData ?? {}) });
         setState(newState);
       },
     };
@@ -87,14 +88,9 @@ const useStateMachine = <T,>() => {
   const context = useContext(StateMachineContext);
 
   return useMemo(() => {
-    return context ? {
+    return {
       ...context,
       data: context.data as T,
-    } : {
-      data: {} as T,
-      history: [],
-      lastState: (): string | undefined => undefined,
-      setState: () => { },
     };
   }, [context]);
 };

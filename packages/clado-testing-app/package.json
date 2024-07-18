@@ -1,0 +1,46 @@
+{
+  "private": true,
+  "name": "clado-testing-app",
+  "scripts": {
+    "lint": "cross-env 'ESLINT_USE_FLAT_CONFIG=true eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist .'",
+    "fix": "cross-env 'ESLINT_USE_FLAT_CONFIG=true pnpm audit --fix && eslint -c ./config/.eslintrc.js --debug --ignore-pattern dist --fix .'",
+    "start": "cross-env 'vite -c ./config/vite.config.ts'",
+    "prestart": "cd ../clado && pnpm build"
+  },
+  "engines": {
+    "node": "~20.14.0",
+    "npm": "~10.8.1"
+  },
+  "volta": {
+    "node": "20.14.0",
+    "npm": "10.8.1",
+    "pnpm": "9.4.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "cross-env": "^7.0.3",
+    "eslint": "8.56.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-security": "^3.0.1",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "dependencies": {
+    "clado": "link:..\\clado",
+    "crypto-js": "^4.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router": "^6.25.0",
+    "react-router-dom": "^6.25.0"
+  }
+}

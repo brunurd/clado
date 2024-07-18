@@ -46,3 +46,4 @@ logs/
 env.json
 env.*.json
 response.json
+vite.config.mts.timestamp-*

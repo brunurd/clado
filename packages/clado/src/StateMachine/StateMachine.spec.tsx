@@ -380,5 +380,60 @@ describe('<StateMachine />', () => {
       expect(screen.queryByText('C')).toBeNull();
       expect(screen.queryByText('Last state: c')).toBeVisible();
     });
+
+    it('should return undefined when the State Machine don\'t have a last state.', () => {
+      enum States {
+        a = 'a',
+        b = 'b',
+        c = 'c',
+      }
+      let lastStateValue: string | undefined = 'a';
+
+      const ComponentA = () => {
+        const { setState, lastState } = useStateMachine();
+        lastStateValue = lastState();
+        return (
+          <>
+            <p>A</p>
+            <button onClick={() => setState(States.c)}>Swap to C</button>
+          </>
+        );
+      };
+
+      const ComponentB = () => {
+        const { setState } = useStateMachine();
+        return (
+          <>
+            <p>B</p>
+            <button onClick={() => setState(States.a)}>Swap to A</button>
+          </>
+        );
+      };
+
+      const ComponentC = () => {
+        const { setState } = useStateMachine();
+        return (
+          <>
+            <p>C</p>
+            <button onClick={() => setState(States.b)}>Swap to B</button>
+          </>
+        );
+      };
+
+      render(
+        <StateMachine
+          states={{
+            a: () => <ComponentA />,
+            b: () => <ComponentB />,
+            c: () => <ComponentC />,
+          }}
+        />,
+      );
+
+      expect(screen.queryByText('A')).toBeVisible();
+      expect(screen.queryByText('B')).toBeNull();
+      expect(screen.queryByText('C')).toBeNull();
+      expect(lastStateValue).toBeUndefined();
+    });
   });
 });
